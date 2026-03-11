@@ -46,3 +46,22 @@ def delete(student_id=None):
         return 'not found', 404
     student_collection.delete_one({"_id": ObjectId(student_id)})
     return student_id
+
+def average_grade(student_id=None):
+    from bson import ObjectId
+    try:
+        student = student_collection.find_one({"_id": ObjectId(student_id)})
+    except Exception:
+        return 'invalid id', 400
+    if not student:
+        return 'not found', 404
+
+    grade_records = student.get('grade_records')
+    if not grade_records:
+        return 'not found', 404
+
+    grades = [record['grade'] for record in grade_records if 'grade' in record]
+    if not grades:
+        return 'not found', 404
+
+    return sum(grades) / len(grades)

@@ -86,6 +86,35 @@ paths:
         "409":
           description: Already exists
       x-openapi-router-controller: swagger_server.controllers.default_controller
+  /student/{student_id}/average_grade:
+    get:
+      summary: gets average grade of a student
+      description: Returns the average grade of that student
+      operationId: get_average_grade
+      parameters:
+        - name: student_id
+          in: path
+          description: the uid
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: number
+                format: float
+                x-content-type: application/json
+        "400":
+          description: Invalid ID
+        "404":
+          description: Student not found or has no grades
+      x-openapi-router-controller: swagger_server.controllers.default_controller
 components:
   schemas:
     Student:
@@ -130,4 +159,3 @@ components:
       example:
         grade: 6.0274563
         subject_name: subject_name
-
