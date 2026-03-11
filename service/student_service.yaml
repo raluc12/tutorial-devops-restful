@@ -38,7 +38,7 @@ spec:
       - env:
         - name: MONGO_URI
           value: mongodb://mongo:27017
-        image: nginx
+        image: ralucc12/student-service:latest
         name: service
         imagePullPolicy: Always
         ports:
